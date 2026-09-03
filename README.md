@@ -1,6 +1,6 @@
 # Asistente — Equipo de análisis financiero
 
-Equipo de sub-agentes de Claude Code que analizan una acción en paralelo, cada uno con un rol fijo, y consolidan todo en un informe único. Inspirado en el patrón de "bot team" para análisis de acciones.
+Equipo de 10 sub-agentes de Claude Code que analizan una acción en paralelo, cada uno con un rol fijo, y consolidan todo en un informe de iniciación único al estilo de un fondo de cobertura. Inspirado en el patrón de "bot team" para análisis de acciones.
 
 ## Uso
 
@@ -10,7 +10,7 @@ En Claude Code, dentro de este repo:
 /analizar-ticker AAPL
 ```
 
-Esto lanza en paralelo a los 6 analistas y devuelve un informe consolidado.
+Esto corre las 3 rondas del equipo (investigación en paralelo → caso bajista → informe final) y devuelve el informe consolidado con veredicto.
 
 ## Equipo
 
@@ -22,8 +22,12 @@ Esto lanza en paralelo a los 6 analistas y devuelve un informe consolidado.
 | `fundamentals-analyst` | Tabla de 5 años, múltiplos de valuación vs. competencia |
 | `management-researcher` | CEO/CFO, insiders (Form 4), señales de alerta |
 | `technical-analyst` | Tendencia de precio, soportes/resistencias, momentum |
+| `sentiment-analyst` | Sentimiento reciente del mercado (vía búsqueda web, sin acceso nativo a X) |
+| `street-analyst` | Cobertura de Wall Street, ratings, precios objetivo, catalizadores fechados |
+| `devils-advocate` | Caso bajista más fuerte, atacando los hallazgos del resto del equipo |
+| `lead-analyst` | Informe de iniciación final y veredicto (Comprar / Observar / Evitar) |
 
-Cada agente vive en `.claude/agents/<nombre>.md`. El orquestador es el skill `.claude/skills/analizar-ticker/SKILL.md`, que sintetiza las 6 respuestas en un informe único con conclusión.
+Cada agente vive en `.claude/agents/<nombre>.md`. El orquestador es el skill `.claude/skills/analizar-ticker/SKILL.md`, que corre las 3 rondas y devuelve el informe del `lead-analyst` como resultado final. `devils-advocate` y `lead-analyst` no investigan por su cuenta: solo juzgan lo que ya reportó el resto del equipo.
 
 ## Limitaciones
 
